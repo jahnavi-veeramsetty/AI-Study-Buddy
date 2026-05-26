@@ -17,12 +17,14 @@ export default function UploadPage({
   Icon,
   studyMaterial,
   onReplaceFile,
+  groqApiKey,
+  onChangeGroqKey,
 }) {
   const hasMaterial = studyMaterial && studyMaterial.trim().length > 0;
 
   return (
     <div className="grid-upload fade-in">
-      
+
       {/* Left Column: Premium Welcome & Feature Insights */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: '28px', textAlign: 'left' }}>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
@@ -31,7 +33,7 @@ export default function UploadPage({
             Elevate Study Notes Into Cognitive Mastery
           </h2>
           <p style={{ fontFamily: 'var(--font-serif-body)', color: 'var(--text-secondary)', fontSize: '16.5px', lineHeight: '1.65', margin: '8px 0 0 0' }}>
-            AI Study Buddy bridges the gap between text reading and intellectual memory. Simply upload your lecture transcripts, PDF textbooks, or visual pages to unlock real-time active recall tools.
+            KL Study Buddy bridges the gap between text reading and intellectual memory. Simply upload your lecture transcripts, PDF textbooks, or visual pages to unlock real-time active recall tools.
           </p>
         </div>
 
@@ -106,11 +108,34 @@ export default function UploadPage({
             </div>
           ))}
         </div>
+
+        {/* Tutor Settings: Groq API Key Input */}
+        <div className="editorial-card" style={{ padding: '20px', display: 'flex', flexDirection: 'column', gap: '12px', borderLeft: '4px solid var(--accent-gold)' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <div style={{ color: 'var(--accent-gold)' }}><Icon type="lock" size={16} /></div>
+            <h4 style={{ fontFamily: 'var(--font-serif-display)', fontSize: '15px', color: 'var(--text-primary)', margin: '0', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+              Tutor Engine Settings
+            </h4>
+          </div>
+          <p style={{ fontFamily: 'var(--font-serif-body)', fontSize: '13px', color: 'var(--text-secondary)', margin: '0', lineHeight: '1.4' }}>
+            Configure your personal Groq API Key to power exegesis, quizzes, and live proctor tests. Key is stored locally in your browser.
+          </p>
+          <div style={{ display: 'flex', gap: '8px', width: '100%' }}>
+            <input
+              type="password"
+              placeholder="Enter your Groq API Key (gsk_...)"
+              value={groqApiKey}
+              onChange={(e) => onChangeGroqKey(e.target.value)}
+              className="editorial-input"
+              style={{ padding: '10px 14px', fontSize: '13.5px', fontFamily: 'var(--font-mono)' }}
+            />
+          </div>
+        </div>
       </div>
 
       {/* Right Column: Upload Intake Area & Preview Workspace */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
-        
+
         {/* Workspace Title */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px', borderBottom: '1px solid #e2e8f0', paddingBottom: '16px', textAlign: 'left' }}>
           <div style={{ color: 'var(--accent-gold)' }}><Icon type="upload" size={20} /></div>
@@ -147,7 +172,7 @@ export default function UploadPage({
                 style={{ display: 'none' }}
                 onChange={handleFileChange}
               />
-              
+
               <div style={{ color: 'var(--accent-gold-muted)', padding: '16px', borderRadius: '50%', border: '1px solid rgba(29, 78, 216, 0.12)', backgroundColor: 'var(--accent-gold-light)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 <Icon type="upload" size={32} />
               </div>

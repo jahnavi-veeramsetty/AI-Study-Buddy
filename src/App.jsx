@@ -283,7 +283,9 @@ function App() {
   });
 
   const [toast, setToast] = useState({ show: false, message: '' });
-  const [groqApiKey, setGroqApiKey] = useState(import.meta.env.VITE_GROQ_API_KEY || '');
+  const [groqApiKey, setGroqApiKey] = useState(() => {
+    return localStorage.getItem('groq_api_key') || import.meta.env.VITE_GROQ_API_KEY || '';
+  });
 
   // Navigate function to update URL hash
   const navigateTo = (tabId) => {
@@ -1036,6 +1038,11 @@ These historical study methods lay the foundation for modern pedagogical structu
     navigateTo('upload');
   };
 
+  const handleGroqKeyChange = (newKey) => {
+    setGroqApiKey(newKey);
+    localStorage.setItem('groq_api_key', newKey);
+  };
+
   // ----------------------------------------------------------------------
   // VIEW RENDER CORRESPONDING TO TABS
   // ----------------------------------------------------------------------
@@ -1156,7 +1163,7 @@ These historical study methods lay the foundation for modern pedagogical structu
             <div className="navbar-logo-icon">
               <Icon type="tutor" size={20} />
             </div>
-            <h1 className="navbar-logo-text">AI Study Buddy</h1>
+            <h1 className="navbar-logo-text">KL Study Buddy</h1>
             <span className="navbar-logo-sub" style={{ display: 'inline-block' }}>your personal proctor & tutor</span>
           </div>
           <nav className="navbar-nav-tabs">
@@ -1216,6 +1223,8 @@ These historical study methods lay the foundation for modern pedagogical structu
                 Icon={Icon}
                 studyMaterial={studyMaterial}
                 onReplaceFile={handleReplaceFile}
+                groqApiKey={groqApiKey}
+                onChangeGroqKey={handleGroqKeyChange}
               />
             ) : (
               renderTabContent()
